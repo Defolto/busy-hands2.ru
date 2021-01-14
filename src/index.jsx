@@ -1,11 +1,17 @@
 import React, { Fragment } from 'react'
 import {render} from 'react-dom'
+import { Header } from './components/Header.jsx'
 import './styles/general.scss'
 
+/**
+ * Проверка того, что документация работает.
+ */
 class BusyHands extends React.Component{
     render(){
-        console.log(5);
-        return <p>Привет мир!</p>
+        return <Fragment>
+            <Header />
+            <p>Привет мир</p>
+        </Fragment>
     }
 }
 

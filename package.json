@@ -4,7 +4,8 @@
   "description": "aplication for business",
   "main": "index.jsx",
   "scripts": {
-    "dev": "webpack --mode development"
+    "dev": "webpack --mode development",
+    "doc": "jsdoc src/index.jsx -c src/conf.json"
   },
   "keywords": [
     "html",
@@ -36,6 +37,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "html-webpack-plugin": "^4.5.1",
+    "jsdoc": "^3.6.6",
     "mini-css-extract-plugin": "^1.3.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
