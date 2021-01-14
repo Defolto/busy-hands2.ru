@@ -5,7 +5,8 @@
   "main": "index.jsx",
   "scripts": {
     "dev": "webpack --mode development",
-    "doc": "jsdoc src/index.jsx -c src/conf.json"
+    "doc": "jsdoc src/index.jsx -c src/conf.json",
+    "server": "node ./dist/server/server.js"
   },
   "keywords": [
     "html",
@@ -28,7 +29,9 @@
   "author": "Maxim Egorov <defoltmaks@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "socket.io": "^3.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -38,6 +41,7 @@
     "@fancyapps/fancybox": "^3.5.7",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.1",
