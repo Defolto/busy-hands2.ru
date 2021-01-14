@@ -5,6 +5,16 @@ import './styles/general.scss'
 import './styles/fancybox.scss'
 import '@fancyapps/fancybox'
 import img from './img/foto.jpg'
+import io from 'socket.io-client';
+
+const socket = io();
+let youName = prompt("Ваше имя?");
+socket.emit('show', youName);
+socket.on('show', function(name) {
+    if (name != youName) {
+        alert(`${name} в сети`)
+    }
+});
 
 /**
  * Проверка того, что документация работает.
