@@ -13,7 +13,7 @@
 После скачивания репозитория установите все зависимости следующим путём:
 
 ```sh
-$ npm install -d
+$ npm install 
 ```
 
 Для полноценной работы приложения (после его установки) необходимо прописать следующие команды
@@ -40,3 +40,6 @@ html, css, javaScript, react, fancyBox, jsDoc, SocketIO, nodeJS, webpack, babel,
 ### Планы на будущее
   - Добавить typeScript для строгой типизации
   - Добавить тесты с помощью Jest + Enzyme
+
+### Макет приложения
+https://www.figma.com/file/sPchO6hS0uoQhNrlG1xpRy/Untitled
