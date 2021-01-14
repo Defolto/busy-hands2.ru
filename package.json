@@ -1,0 +1,36 @@
+{
+  "name": "busy-hands2.ru",
+  "version": "0.1.0",
+  "description": "aplication for business",
+  "main": "index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html",
+    "js",
+    "css",
+    "scss",
+    "ts",
+    "react",
+    "jest",
+    "jsDoc",
+    "NODE",
+    "MongoDB",
+    "webpack",
+    "git",
+    "heroku",
+    "babel",
+    "aplication",
+    "business"
+  ],
+  "author": "Maxim Egorov <defoltmaks@gmail.com>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.5.1",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
+  }
+}
