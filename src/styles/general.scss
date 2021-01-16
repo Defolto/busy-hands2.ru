@@ -1,12 +1,39 @@
 body{
-    background-color: aqua;
+    background-color: #F3F6FD;
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 #Busy-hands{
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+}
+
+footer{
+    text-align: center;
+    padding: 10px 0;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+
+    .leftCol{
+        width: 35%;
+        background-color: aqua;
+    }
+
+    .rightCol{
+        width: 65%;
+        background-color: rgb(93, 111, 214);
+
+        .widget{
+            height: 100%;
+        }
+    }
 }

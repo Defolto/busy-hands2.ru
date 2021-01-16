@@ -1,5 +1,5 @@
 {
     "source": {
-        "include": ["src/components/Header.jsx"]
+        "include": ["src/components/Header.jsx", "src/models/User.js"]
     }
 }

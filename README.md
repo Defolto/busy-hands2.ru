@@ -44,7 +44,7 @@ $ node ./dist/server/server.js
 | devServer | Запускает только приложение без работы сервера. При таком запуске не будет работать база данных и отправка сообщений. По умолчанию работает на http://localhost:9000/ |
 
 ### Используемые технологии
-html, css, javaScript, react, fancyBox, jsDoc, SocketIO, nodeJS, webpack, babel, express и т.д.. Полный список можно посмотреть в файле package.json в полях *dependencies* и *devDependencies*
+html, css, javaScript, react, fancyBox, jsDoc, SocketIO, nodeJS, webpack, babel, express и т.д.. Полный список можно посмотреть в файле package.json в полях *dependencies*, *devDependencies* и *keywords*
 
 ### Планы на будущее
   - Добавить typeScript для строгой типизации
