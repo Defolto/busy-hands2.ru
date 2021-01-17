@@ -4,9 +4,13 @@ import avatar from '../img/avatar.jpg'
 import '../styles/header.scss'
 
 /**
- * Проверка того, что документация работает в header.
+ * Компонент для отображения шапки
  */
 export class Header extends React.Component{
+    /** 
+     * Вывод шапки
+     * @this {Header}
+    */
     render(){
         return(
             <header className="header">

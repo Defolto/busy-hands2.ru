@@ -1,5 +1,10 @@
 {
     "source": {
-        "include": ["src/components/Header.jsx", "src/models/User.js"]
+        "include": ["src/components/Header.jsx",
+             "src/models/User.js",
+              "src/components/Registered.jsx",
+              "src/components/left/LeftMain.jsx",
+              "src/components/right/RightMain.jsx",
+              "src/components/right/Chat.jsx"]
     }
 }

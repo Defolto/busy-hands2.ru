@@ -4,49 +4,53 @@ import { Header } from './components/Header.jsx'
 import './styles/general.scss'
 import './styles/fancybox.scss'
 import '@fancyapps/fancybox'
-import img from './img/foto.jpg'
 import io from 'socket.io-client';
 import { Registered } from './components/Registered.jsx'
 import {User} from './models/User'
-import {bd} from './server/emulation'
 import { LeftMain } from './components/left/leftMain.jsx'
 import { RightMain } from './components/right/RightMain.jsx'
 import { setHeightChat, setHeightMain } from './functions/scripts.js'
 
-// const socket = io();
-// let youName = prompt("Ваше имя?");
-// socket.emit('show', youName);
-// socket.on('show', function(name) {
-//     if (name != youName) {
-//         alert(`${name} в сети`)
-//     }
-// });
-
 /** Основной компонент*/
 class BusyHands extends React.Component{
     /** 
-     * Хранение всей необходимой информации
+     * Хранение всей необходимой информации о пользователе
      * @constructor
      * @this {BusyHands}
     */
     constructor(props){
         super(props);
         this.state = {
-            registered: true,
-            user: new User(bd[0])
-        }
-    }
-
-    componentDidMount(){
-        setHeightMain();
-        setHeightChat();
+            registered: false,
+            sendAlert: false,
+            user: ''
+        },
+        this.socket = io()
     }
 
     /**
-     * Вход пользователя в случае удачной проверки. Проверка проходит в компоненте Registered.jsx, метод checkLogin()
-     * @param {object} user - передача объекта для создания экземпляра класса
-     * @param {boolean} loginIn - результат проверки из компонета Registered.jsx, метод checkLogin()
+     * После обновления состояния будут сделаны: <br>
+     * 1) setHeightMain() и setHeightChat() для адаптации экрана <br>
+     * 2) отправка события show через Socket.io <br>
+     * 3) регистрация слушателя события show через Socket.io для отображения пользователей, которые зашли
      * @this {BusyHands}
+     */
+    componentDidUpdate(){
+        if (this.state.user != '') {
+            setHeightMain();
+            setHeightChat();
+            let youName = this.state.user.name;
+            this.socket.emit('show', youName);
+            this.socket.on('show', function(name) {
+                if (name != youName) {
+                    alert(`${name} в сети`)
+                }
+            });
+        }
+    }
+
+    /**
+     * Вход пользователя в случае удачной проверки. Проверка проходит в компоненте Registered, метод checkLogin()
      */
     loginIn = (user, loginIn)=>{
         if (loginIn) {
@@ -58,6 +62,19 @@ class BusyHands extends React.Component{
         }
     }
 
+    /**
+     * Будущий метод для скрытия уведомления от новых пользователей
+     */
+    hideAlert = () =>{
+        this.setState({
+            sendAlert: false
+        })
+    }
+
+    /**
+     * Если this.state.registered == false, то выйдет окно входа <br> 
+     * Если this.state.registered == true, то выйдет приложение
+     */
     render(){
         if (this.state.registered) {
             return(
@@ -65,15 +82,28 @@ class BusyHands extends React.Component{
                     <Header user={this.state.user} />
                     <main>
                         <LeftMain />
-                        <RightMain />
+                        <RightMain user={this.state.user} />
                     </main>
                     <footer>Сделано Максимом</footer>
+                    {this.state.sendAlert ? <ShowAlert hideAlert={this.hideAlert} name={this.state.sendAlert}/> : ''}
                 </Fragment>
             )
         } else {
             return <Registered loginIn={this.loginIn}/>
         }
     }
+}
+
+/**
+ * Будущий компонент, отображающий уведомления в нижнем правом углу
+*/
+function ShowAlert(props){
+    return(
+        <div className="modal">
+            <p>{props.name} в сети</p>
+            <button onClick={()=>props.hideAlert()}>Закрыть</button>
+        </div>
+    )
 }
 
 render(<BusyHands />, document.querySelector('#Busy-hands'))

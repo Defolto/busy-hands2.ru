@@ -12,6 +12,15 @@ body{
     flex-direction: column;
     height: 100%;
     width: 100%;
+    position: relative;
+
+    .modal{
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        background-color: black;
+        color: white;
+    }
 }
 
 footer{

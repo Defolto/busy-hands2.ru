@@ -2,8 +2,13 @@ import React from 'react'
 import { Chat } from './Chat.jsx'
 import '../../styles/rightCol/nav.scss'
 
-
+/** Компонент правой части экрана. Содержит в себе меню виджетов и сам блок виджета*/
 export class RightMain extends React.Component{
+    /** 
+     * Хранение информации про активный виджет
+     * @constructor
+     * @this {RightMain}
+    */
     constructor(props){
         super(props);
         this.state = {
@@ -11,6 +16,9 @@ export class RightMain extends React.Component{
         }
     }
 
+    /**
+     * С помощью switch выбирается активный виджет
+     */
     render(){
         switch (this.state.widget) {
             case "chat":
@@ -26,7 +34,7 @@ export class RightMain extends React.Component{
                                 </div>
                             </nav>
                             <div className="widget">
-                                <Chat />
+                                <Chat user={this.props.user} />
                             </div>
                         </div>)
             default:

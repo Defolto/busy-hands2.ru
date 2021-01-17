@@ -10,13 +10,14 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('chat message', (msg, name) => {
-      io.emit('chat message', msg, name);
+    socket.on('sendMessage', (msg, name) => {
+      console.log(name);
+      io.emit('sendMessage', msg, name);
     });
 
     socket.on('show', (name) => {
         io.emit('show', name);
-      });
+    });
 });
 
 http.listen(3000, () => {

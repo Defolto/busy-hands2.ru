@@ -12,6 +12,7 @@ export class User{
         this.name = objectUser.name,
         this.email = objectUser.email,
         this.password = objectUser.password,
-        this.company = objectUser.company
+        this.company = objectUser.company,
+        this.chats = objectUser.chats
     }
 }
