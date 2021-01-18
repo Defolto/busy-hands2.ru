@@ -13,6 +13,22 @@ export class User{
         this.email = objectUser.email,
         this.password = objectUser.password,
         this.company = objectUser.company,
-        this.chats = objectUser.chats
+        this.chats = objectUser.chats,
+        this.img = objectUser.img
+    }
+
+    /**
+     * Метод для получения пути аватара
+     * @constructor
+     * @param {Number} stepBack - из скольки папок нужно выйти, для оказания в корне
+     * @this {User}
+     */
+    getUrlImg(stepBack){
+        let url = '';
+        for (let i = 0; i < stepBack; i++) {
+            url = url + '../'
+        };
+        url = url + `server/img/${this.img}`;
+        return url;
     }
 }

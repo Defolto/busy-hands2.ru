@@ -29,8 +29,8 @@ $ node ./dist/server/server.js
 
 | Email | Password | Имя аккаунта
 | ------ | ------ | ------ |
-| test@gmail.com | 1234 | Максим |
-| test1@gmail.com | 12345 | Катя |
+| defoltspam@gmail.com | 952863 | Максим |
+| katya@gmail.com | 1234 | Катя |
 
 ### Проверка работы чата (для задания по тензору)
 

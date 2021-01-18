@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../styles/rightCol/chat.scss'
-import avatar from '../../server/img/avatar.jpg'
+import avatar from '../../server/img/maksim.jpg'
 import io from 'socket.io-client'
 
 /** Виджет для чата*/
