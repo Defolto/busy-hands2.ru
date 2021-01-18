@@ -2,6 +2,7 @@ import React from 'react'
 import '../../styles/rightCol/chat.scss'
 import avatar from '../../server/img/maksim.jpg'
 import io from 'socket.io-client'
+import { User } from '../../models/User';
 
 /** Виджет для чата*/
 export class Chat extends React.Component{
@@ -15,6 +16,7 @@ export class Chat extends React.Component{
         this.socket = io();
         this.state ={
             message: '',
+            userChats: 'ky',
             historyMessages: []
         }
 
@@ -69,6 +71,39 @@ export class Chat extends React.Component{
             newHistoryMessages.push(objectMessage);
             upadte(newHistoryMessages);
         });    
+
+        const updateUserChats = (users) =>{
+            this.setState({
+                userChats: users
+            })
+        }
+        const youEmail = this.props.user.email;
+        
+        fetch('/getUsersChat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date:{
+                    chats: this.props.user.chats
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            let userChats = res.map((object)=>{
+                let userChat = new User(object)
+                return(<div key={userChat.email} className="chat-users__select">
+                            <img src={userChat.getUrlImg(2)} alt="foto"/>
+                            <div className="chat-users__info">
+                                <p className="chat-users__name">{userChat.name}</p>
+                                <p className="chat-users__lastMessage">{userChat.getLastMessage(youEmail)}</p>
+                            </div>
+                        </div>)
+            })
+            updateUserChats(userChats)
+        });
     }
 
     /** 
@@ -95,7 +130,7 @@ export class Chat extends React.Component{
             })
         }
     }
-
+    
     /**
      * 1) создание блока пользователей с которыми есть чат <br> 
      * 2) создание блока чата <br>
@@ -105,13 +140,7 @@ export class Chat extends React.Component{
         return(
             <div className="chat">
                 <div className="chat-users">
-                    <div className="chat-users__select">
-                        <img src={avatar} alt="foto"/>
-                        <div className="chat-users__info">
-                            <p className="chat-users__name">Другой пользователь</p>
-                            <p className="chat-users__lastMessage">Тут последнее сообщение</p>
-                        </div>
-                    </div>
+                    {this.state.userChats}
                 </div>
                 <div className="chat-messages">
                     <div className="chat-messages__wrapper">

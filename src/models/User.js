@@ -19,7 +19,6 @@ export class User{
 
     /**
      * Метод для получения пути аватара
-     * @constructor
      * @param {Number} stepBack - из скольки папок нужно выйти, для оказания в корне
      * @this {User}
      */
@@ -30,5 +29,20 @@ export class User{
         };
         url = url + `server/img/${this.img}`;
         return url;
+    }
+
+    /**
+     * Метод для получения последнего сообщения
+     * @param {string} email - email пользователя, от которого нужно получить последнее сообщение
+     * @this {User}
+     */
+    getLastMessage(email){
+        let returnDate = 'Сообщений нет';
+        this.chats.forEach(element => {
+            if (email == element.id) {
+                returnDate = element.story[element.story.length - 1]["text"];
+            }
+        });
+        return returnDate;
     }
 }

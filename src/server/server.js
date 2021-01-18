@@ -17,19 +17,44 @@ app.get('/', (req, res) => {
 });
 
 app.post('/login', function(request, response){
-  mongoClient.connect(function(err, client){
+    mongoClient.connect(function(err, client){
 
-    const db = client.db("busy-hand");
-    const collection = db.collection("users");
-     
-    collection.find({"email": request.body.date.email, "password": request.body.date.password}).toArray(function(err, results){
-        if (results.length) {
-            response.json(results[0]);
-        } else {
-            response.json(false);
-        }
+        const db = client.db("busy-hand");
+        const collection = db.collection("users");
+        
+        collection.find({"email": request.body.date.email, "password": request.body.date.password}).toArray(function(err, results){
+            if (results.length) {
+                response.json(results[0]);
+            } else {
+                response.json(false);
+            }
+        });
     });
 });
+
+app.post('/getUsersChat', function(request, response){
+    mongoClient.connect(function(err, client){
+
+        const db = client.db("busy-hand");
+        const collection = db.collection("users");
+        let users = [];
+
+        request.body.date.chats.forEach(element => {
+            users.push(element.email)
+        });
+
+        collection.find({"email": {$in:  users}}).toArray(function(err, results){
+            let users = results.map((object) =>{
+                return {
+                    name: object.name,
+                    email: object.email,
+                    img: object.img,
+                    chats: object.chats
+                }
+            });
+            response.json(users);
+        });
+    });
 });
 
 io.on('connection', (socket) => {
