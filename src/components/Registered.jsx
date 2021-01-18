@@ -27,7 +27,6 @@ export class Registered extends React.Component{
     */
     checkLogin(event){
         event.preventDefault();
-            }
         const email = this.state.email;
         const password = this.state.password
         const login = (object, loginInBool) =>{
