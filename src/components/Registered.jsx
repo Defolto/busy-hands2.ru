@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/registered.scss'
-import {bd} from '../server/emulation'
 
 /** Компонент окна регистрации*/
 export class Registered extends React.Component{
@@ -28,18 +27,29 @@ export class Registered extends React.Component{
     */
     checkLogin(event){
         event.preventDefault();
-        for (let i = 0; i < bd.length; i++) {
-            if (this.state.email === bd[i]["email"]) {
-                if (this.state.password == bd[i]["password"]) {
-                    this.props.loginIn(bd[i], true)
-                    return;
-                }else{
-                    this.props.loginIn('', false)
-                    return;
-                }
             }
+        const email = this.state.email;
+        const password = this.state.password
+        const login = (object, loginInBool) =>{
+            this.props.loginIn(object, loginInBool)
         }
-        this.props.loginIn('', false)
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date:{
+                    email: email,
+                    password: password
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            // если пользователь найден
+            login(res, true)
+        });
     }
 
     /** 
