@@ -34,12 +34,12 @@ export class Registered extends React.Component{
                     this.props.loginIn(bd[i], true)
                     return;
                 }else{
-                    alert("Пароль с ошибкой")
+                    this.props.loginIn('', false)
                     return;
                 }
             }
         }
-        alert("Пользователя нет")
+        this.props.loginIn('', false)
     }
 
     /** 
@@ -64,6 +64,7 @@ export class Registered extends React.Component{
             <div className="registered">
                 <h1>Busy-hands.ru</h1>
                 <form onSubmit={this.checkLogin}>
+                    <p className="error">{this.props.messageError}</p>
                     <input type="text" value={this.state.email} placeholder="email" onChange={this.writeDate}/>
                     <input type="password" value={this.state.password} placeholder="password" onChange={this.writeDate}/>
                     <label>

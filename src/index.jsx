@@ -23,6 +23,7 @@ class BusyHands extends React.Component{
         this.state = {
             registered: false,
             sendAlert: false,
+            messageError: '',
             user: ''
         },
         this.socket = io()
@@ -52,12 +53,17 @@ class BusyHands extends React.Component{
     /**
      * Вход пользователя в случае удачной проверки. Проверка проходит в компоненте Registered, метод checkLogin()
      */
-    loginIn = (user, loginIn)=>{
-        if (loginIn) {
+    loginIn = (user, loginInBool)=>{
+        if (loginInBool) {
             const newUser = new User(user);
             this.setState({
                 registered: true,
-                user: newUser
+                user: newUser,
+                messageError: ''
+            })
+        }else{
+            this.setState({
+                messageError: 'Ошибка. Проверьте ввод данных'
             })
         }
     }
@@ -89,7 +95,7 @@ class BusyHands extends React.Component{
                 </Fragment>
             )
         } else {
-            return <Registered loginIn={this.loginIn}/>
+            return <Registered loginIn={this.loginIn} messageError={this.state.messageError}/>
         }
     }
 }

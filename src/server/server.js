@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
+app.post('/login', function(request, response){
+  response.json(request.body.date.name);
+});
+
 io.on('connection', (socket) => {
     socket.on('sendMessage', (msg, name) => {
       console.log(name);
