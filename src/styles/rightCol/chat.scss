@@ -8,6 +8,11 @@
         background-color: aliceblue;
         height: 100%;
 
+        &__active{
+            background-color: #fff !important;
+            box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+
         &__select{
             display: flex;
             flex-direction: row;
@@ -17,7 +22,7 @@
             cursor: pointer;
 
             &:hover{
-                background-color: #fff;
+                background-color: rgba(255, 255, 255, 0.5);
             }
 
             img{

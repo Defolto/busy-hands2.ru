@@ -17,6 +17,7 @@ export class Chat extends React.Component{
         this.state ={
             message: '',
             userChats: 'ky',
+            activeUserChat: '',
             historyMessages: []
         }
 
@@ -28,6 +29,7 @@ export class Chat extends React.Component{
      * После обновления состояния будут сделаны: <br>
      * 1) в this.state.historyMessages запишется стартовое сообщение <br>
      * 2) регистрация слушателя события sendMessage через Socket.io <br>
+     * 2) загрузка пользователей, с которыми есть чат <br>
      * @this {Chat}
      */
     componentDidMount(){
@@ -72,9 +74,10 @@ export class Chat extends React.Component{
             upadte(newHistoryMessages);
         });    
 
-        const updateUserChats = (users) =>{
+        const updateUserChats = (users, activeUserChat) =>{
             this.setState({
-                userChats: users
+                userChats: users,
+                activeUserChat: activeUserChat
             })
         }
         const youEmail = this.props.user.email;
@@ -92,9 +95,13 @@ export class Chat extends React.Component{
         })
         .then(res => res.json())
         .then(res => {
-            let userChats = res.map((object)=>{
-                let userChat = new User(object)
-                return(<div key={userChat.email} className="chat-users__select">
+            let activeUserChat = '';
+            let userChats = res.map((object, index)=>{
+                let userChat = new User(object);
+                if (index == 0) {
+                    activeUserChat = userChat.email;
+                }
+                return(<div key={userChat.email} className={`chat-users__select ${index == 0 ? "chat-users__active" : ""}`}>
                             <img src={userChat.getUrlImg(2)} alt="foto"/>
                             <div className="chat-users__info">
                                 <p className="chat-users__name">{userChat.name}</p>
@@ -102,7 +109,7 @@ export class Chat extends React.Component{
                             </div>
                         </div>)
             })
-            updateUserChats(userChats)
+            updateUserChats(userChats, activeUserChat)
         });
     }
 
@@ -137,6 +144,7 @@ export class Chat extends React.Component{
      * *используется функциональный компонент Messages для генерации сообщений
      */
     render(){
+        console.log(this.state.activeUserChat);
         return(
             <div className="chat">
                 <div className="chat-users">
@@ -144,7 +152,7 @@ export class Chat extends React.Component{
                 </div>
                 <div className="chat-messages">
                     <div className="chat-messages__wrapper">
-                        <Messages messages={this.state.historyMessages} />
+                        <Messages messages={this.state.historyMessages} activeUserChat={this.state.activeUserChat}/>
                     </div>
                     <form className="chat-messages__submit" onSubmit={this.sendMessage}>
                         <input type="text" placeholder="Введите сообщение" value={this.state.message} onChange={this.writeDate}/>

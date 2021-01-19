@@ -12,6 +12,7 @@ const mongoClient = new MongoClient(url, {useUnifiedTopology: true});
 app.use(express.static(path.resolve(__dirname, '../')));
 // для работы с request
 app.use(express.json());
+
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 });
@@ -57,6 +58,7 @@ app.post('/getUsersChat', function(request, response){
     });
 });
 
+// Подключение нового пользователя
 io.on('connection', (socket) => {
     socket.on('sendMessage', (msg, name) => {
       console.log(name);
